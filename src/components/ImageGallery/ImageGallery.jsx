@@ -1,18 +1,12 @@
-import { Component } from 'react';
-//import { fetchImages } from '../api'
+import React from 'react';
+import { ImageGalleryItem } from './ImageGalleryItem';
 
-export default class ImageGallery extends Component {
-    /*async componentDidMount() {
-        try {
-           const images = await fetchImages() 
-           console.log(images)
-        } catch (error) {
-            
-        }
-    }*/
-  render() {
-    return <ul className="ImageGallery">
-
-    </ul>;
-  }
-}
+export const ImageGallery = ({ images }) => {
+  return (
+    <ul className="ImageGallery" >
+      {images.map(img => {
+        return <ImageGalleryItem key={img.id} image={img} />;
+      })}
+    </ul>
+  );
+};

@@ -1,10 +1,14 @@
+import {Component} from 'react';
 
-export const Modal = () => {
+export class Modal extends Component {
+  render () {
+    const {largeImg, onClose} = this.props;
    return (
-    <div className="overlay">
-  <div className="modal">
-    <img src="" alt="" />
+      <div onClick={onClose} className="Overlay">
+  <div className="Modal">
+    <img src={largeImg} alt="" />
   </div>
 </div>
    ) 
+  }
 }
