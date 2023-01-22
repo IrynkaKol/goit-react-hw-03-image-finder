@@ -2,14 +2,15 @@ import { Component } from 'react';
 import Searchbar from './Searchbar/Searchbar';
 import { fetchImages } from 'service/fetchImages';
 import { ImageGallery } from './ImageGallery/ImageGallery';
-
 import { Button } from './Button/Button';
+import { Loader } from './Loader/Loader';
 
 export class App extends Component {
   state = {
     query: '',
     images: [],
     page: 1,
+    isLoading: false,
   };
   componentDidUpdate(prevProps, prevState) {
     const { query, page } = this.state;
@@ -18,31 +19,25 @@ export class App extends Component {
         this.setState(({ images }) => ({
           images: page === 1 ? [...resp.hits] : [...images, ...resp.hits],
         }));
-        //console.log(resp)
-      });
+      })
+      .finally(() => this.setState({isLoading: false}));
     }
   }
 
   handleSubmit = query => {
-    this.setState({ query });
+    this.setState({ query, isLoading: true });
   };
-handleLoadMore = () => {
-this.setState(({page}) => ({page: page + 1}))
-}
+  handleLoadMore = () => {
+    this.setState((prevState) => ({ page: prevState.page + 1, isLoading: true }));
+  };
 
   render() {
     return (
-      <div 
-      style={{
-        display: 'grid',
-        gridTemplateColumns: '1fr',
-        gridGap: '16px',
-        paddingBottom: '24px',
-      }}>
+      <div className='App'>
         <Searchbar onSubmit={this.handleSubmit} />
         <ImageGallery images={this.state.images} />
-        
-        {!!this.state.images.length && <Button onClick={this.handleLoadMore} />}
+
+        {this.state.isLoading ? <Loader /> : !!this.state.images.length && <Button onClick={this.handleLoadMore} />}
         
       </div>
     );
