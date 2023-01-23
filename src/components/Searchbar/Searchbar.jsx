@@ -1,8 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {
+  SearchbarStyled,
+  SearchForm,
+  SearchFormButton,
+  SearchFormButtonLabel,
+  SearchFormInput,
+} from './Searchbar.styled';
 
-export const Searchbar = ({onSubmit}) => {
- /* state = {
+export const Searchbar = ({ onSubmit }) => {
+  /* state = {
     query: '',
   };
   handleChange = ({ target: { name, value } }) => {
@@ -10,34 +17,31 @@ export const Searchbar = ({onSubmit}) => {
   };*/
   const handleSubmit = e => {
     e.preventDefault();
-    
+
     onSubmit(e.currentTarget.elements.query.value);
   };
 
-   
-    
-    return (
-      <header className="Searchbar">
-        <form className="SearchForm" onSubmit={handleSubmit}>
-          <button type="submit" className="SearchForm-button">
-            <span className="SearchForm-button-label">Search</span>
-          </button>
+  return (
+    <SearchbarStyled>
+      <SearchForm onSubmit={handleSubmit}>
+        <SearchFormButton type="submit">
+          <SearchFormButtonLabel>Search</SearchFormButtonLabel>
+        </SearchFormButton>
 
-          <input
-            name="query"
-            /*value={query}
+        <SearchFormInput
+          name="query"
+          /*value={query}
             onChange={this.handleChange}*/
-            className="SearchForm-input"
-            type="text"
-            autoComplete="off"
-            autoFocus
-            placeholder="Search images and photos"
-          />
-        </form>
-      </header>
-    );
-  
-}
+
+          type="text"
+          autoComplete="off"
+          autoFocus
+          placeholder="Search images and photos"
+        />
+      </SearchForm>
+    </SearchbarStyled>
+  );
+};
 Searchbar.propTypes = {
   onSubmit: PropTypes.func,
-}
+};

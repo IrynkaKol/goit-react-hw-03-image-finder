@@ -1,6 +1,7 @@
 import { Component } from 'react';
-import {createPortal} from 'react-dom'
-const modalRef = document.querySelector('#modal-root')
+import { createPortal } from 'react-dom';
+import { Overlay, ModalStyled } from './Modal.styled';
+const modalRef = document.querySelector('#modal-root');
 
 export class Modal extends Component {
   componentDidMount() {
@@ -17,11 +18,12 @@ export class Modal extends Component {
   render() {
     const { largeImg, onClose } = this.props;
     return createPortal(
-      <div onClick={onClose} className="Overlay">
-        <div className="Modal">
-          <img src={largeImg} alt="" />
-        </div>
-      </div>, modalRef
+      <Overlay onClick={onClose}>
+        <ModalStyled >
+          <img src={largeImg} alt="big" />
+        </ModalStyled>
+      </Overlay>,
+      modalRef
     );
   }
 }
