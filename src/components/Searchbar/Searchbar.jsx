@@ -1,30 +1,31 @@
-import { Component } from 'react';
+import React from 'react';
 
-export default class Searchbar extends Component {
-  state = {
+export const Searchbar = ({onSubmit}) => {
+ /* state = {
     query: '',
   };
   handleChange = ({ target: { name, value } }) => {
     this.setState({ [name]: value });
-  };
-  handleSubmit = e => {
+  };*/
+  const handleSubmit = e => {
     e.preventDefault();
-    this.props.onSubmit(this.state.query);
+    
+    onSubmit(e.currentTarget.elements.query.value);
   };
 
-  render() {
-    const { query } = this.state;
+   
+    
     return (
       <header className="Searchbar">
-        <form className="SearchForm" onSubmit={this.handleSubmit}>
+        <form className="SearchForm" onSubmit={handleSubmit}>
           <button type="submit" className="SearchForm-button">
             <span className="SearchForm-button-label">Search</span>
           </button>
 
           <input
             name="query"
-            value={query}
-            onChange={this.handleChange}
+            /*value={query}
+            onChange={this.handleChange}*/
             className="SearchForm-input"
             type="text"
             autoComplete="off"
@@ -34,5 +35,5 @@ export default class Searchbar extends Component {
         </form>
       </header>
     );
-  }
+  
 }
