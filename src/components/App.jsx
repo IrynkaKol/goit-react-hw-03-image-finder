@@ -34,7 +34,8 @@ export class App extends Component {
   };
 
   handleSubmit = query => {
-    this.setState({ query, isLoading: true });
+    this.setState({ query, isLoading: true, page: 1 });
+    
   };
   renderButtonOrLoader = () => {
     return this.state.isLoading ? (
