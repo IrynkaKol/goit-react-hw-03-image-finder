@@ -1,9 +1,11 @@
 import { Component } from 'react';
-import {Searchbar} from './Searchbar/Searchbar';
+import { AppStyled } from './App.styled';
+import toast from 'react-hot-toast';
+import { Searchbar } from '../Searchbar/Searchbar';
 import { fetchImages } from 'service/fetchImages';
-import { ImageGallery } from './ImageGallery/ImageGallery';
-import { Button } from './Button/Button';
-import { Loader } from './Loader/Loader';
+import { ImageGallery } from '../ImageGallery/ImageGallery';
+import { Button } from '../Button/Button';
+import { Loader } from '../Loader/Loader';
 
 export class App extends Component {
   state = {
@@ -23,6 +25,17 @@ export class App extends Component {
             totalImgs: resp.totalHits,
           }));
         })
+        .then(data => {
+          if (data.hits.length === 0) {
+            throw new Error();
+          }
+        })
+        .catch(error => {
+          return toast.error(
+            'Sorry, there are no images matching your search query. Please try again.'
+          );
+        })
+
         .finally(() => {
           this.setState({ isLoading: false });
         });
@@ -35,7 +48,6 @@ export class App extends Component {
 
   handleSubmit = query => {
     this.setState({ query, isLoading: true, page: 1 });
-    
   };
   renderButtonOrLoader = () => {
     return this.state.isLoading ? (
@@ -50,11 +62,11 @@ export class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <AppStyled>
         <Searchbar onSubmit={this.handleSubmit} />
         <ImageGallery images={this.state.images} />
         {this.renderButtonOrLoader()}
-      </div>
+      </AppStyled>
     );
   }
 }
