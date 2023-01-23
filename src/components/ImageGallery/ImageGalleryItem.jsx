@@ -1,4 +1,5 @@
 import {Component} from 'react';
+import PropTypes from 'prop-types';
 import { Modal } from '../Modal/Modal';
 
 export class ImageGalleryItem extends Component {
@@ -25,3 +26,7 @@ this.setState((prevState) => ({
   );
   }
 };
+
+ImageGalleryItem.propTypes = {
+  image: PropTypes.object,
+}

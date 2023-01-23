@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export const Searchbar = ({onSubmit}) => {
  /* state = {
@@ -36,4 +37,7 @@ export const Searchbar = ({onSubmit}) => {
       </header>
     );
   
+}
+Searchbar.propTypes = {
+  onSubmit: PropTypes.func,
 }
