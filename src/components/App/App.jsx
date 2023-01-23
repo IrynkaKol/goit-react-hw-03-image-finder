@@ -25,17 +25,11 @@ export class App extends Component {
             totalImgs: resp.totalHits,
           }));
         })
-        .then(data => {
-          if (data.hits.length === 0) {
-            throw new Error();
-          }
-        })
         .catch(error => {
           return toast.error(
             'Sorry, there are no images matching your search query. Please try again.'
           );
         })
-
         .finally(() => {
           this.setState({ isLoading: false });
         });
