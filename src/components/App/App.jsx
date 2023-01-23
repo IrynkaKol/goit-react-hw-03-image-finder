@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import { AppStyled } from './App.styled';
-import toast from 'react-hot-toast';
+import Notiflix from 'notiflix';
+//import toast from 'react-hot-toast';
 import { Searchbar } from '../Searchbar/Searchbar';
 import { fetchImages } from 'service/fetchImages';
 import { ImageGallery } from '../ImageGallery/ImageGallery';
@@ -15,8 +16,11 @@ export class App extends Component {
     isLoading: false,
     totalImgs: 0,
   };
+
+  
   componentDidUpdate(_, prevState) {
-    const { query, page } = this.state;
+    const { query, page } = this.state; 
+    
     if (prevState.query !== query || prevState.page !== page) {
       fetchImages(query, page)
         .then(resp => {
@@ -26,9 +30,9 @@ export class App extends Component {
           }));
         })
         .catch(error => {
-          return toast.error(
-            'Sorry, there are no images matching your search query. Please try again.'
-          );
+          console.log(error)
+          return Notiflix.Notify.failure(
+            'Sorry, there are no images matching your search query. Please try again.')
         })
         .finally(() => {
           this.setState({ isLoading: false });
