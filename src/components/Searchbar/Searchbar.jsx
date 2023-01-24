@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Notiflix from 'notiflix';
 import {
   SearchbarStyled,
   SearchForm,
@@ -17,8 +18,12 @@ export const Searchbar = ({ onSubmit }) => {
   };*/
   const handleSubmit = e => {
     e.preventDefault();
-
     onSubmit(e.currentTarget.elements.query.value);
+      if(e.currentTarget.elements.query.value === "") {
+      Notiflix.Notify.failure('Please, enter your query.')
+      return
+    }
+    e.target.reset()
   };
 
   return (

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {ImageGalleryStyled} from './ImageGallery.styled'
 import { ImageGalleryItem } from './ImageGalleryItem';
 
+
 export const ImageGallery = ({ images }) => {
   return (
     <ImageGalleryStyled>
